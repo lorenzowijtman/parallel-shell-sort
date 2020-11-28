@@ -1,3 +1,4 @@
+// Author: github.com/rboyd/algorithms
 
 public class SequentialShellSort {
     static int[] gaps = {701, 301, 132, 57, 23, 10, 4, 1};
