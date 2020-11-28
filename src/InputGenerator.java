@@ -3,7 +3,6 @@ import java.util.Random;
 
 /* Class that will generate input for the program */
 public class InputGenerator {
-
     private Random r = new Random();
     private long seed = 114;
     private int[] dataset;
