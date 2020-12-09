@@ -3,39 +3,47 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
+
+        System.out.println(Runtime.getRuntime().availableProcessors());
         SequentialShellSort sorter = new SequentialShellSort();
-        int[] input = new InputGenerator(100000, 114).getDataset();
-        long time = 0;
+        int[] input = new InputGenerator(500000, 114).getDataset();
 
-        //run x amount of times
-        int x = 10;
+        //start timer
+        long start = System.currentTimeMillis();
 
-        for(int i = 0; i < x; i++) {
-            //start timer
-            long start = System.currentTimeMillis();
+        //start sorting
+        sorter.sort(input);
 
-            //start sorting
-            sorter.sort(input);
+        //end timer
+        long end = System.currentTimeMillis();
 
-            //end timer
-            long end = System.currentTimeMillis();
+        //get time difference
+        long time = end - start;
 
+        System.out.println(time);
 
-            //get time difference
-            time = end - start;
+//        int result[] = {165, 165, 167, 168, 167, 173, 168, 169, 175, 179};
+//
+//        calcAverage(result);
 
-            System.out.println(time);
-        }
-
-        //devide by amount of times it ran for average time
-        time = time / x;
-
-        //print time result
-        System.out.println("Dataset was sorted " + x + " times");
-        System.out.println("Average Time used to sort array in millis: " + time);
     }
 
     public static void printArray(int[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+
+    public static void calcAverage(int[] results) {
+        long time = 0;
+
+        for(int i = 0; i < results.length; i++) {
+            time += results[i];
+        }
+
+        time = time / results.length;
+
+        //print time result
+        System.out.println("Dataset was sorted " + results.length + " times");
+        System.out.println("Average Time used to sort array in millis: " + time);
+    }
+
 }
