@@ -18,13 +18,16 @@ public class SequentialShellSort {
     pre-calculated experimentally or by using a generating function.
     Popular functions yield Theta(n^(3/2)) (Knuth 1973) or O(N^(4/3))
     (Sedgewick 1986).
-    
+
     "For many practical variants, determining their time complexity
     remains an open problem." [Wikipedia]
     */
     public int[] sort(int[] list) {
         for(int gap: gaps) {
+            int k = 0;
             for (int i = gap; i < list.length; i+=1) {
+
+                System.out.println("("+ ++k +")G: " + gap);
                 int j = i;
                 int current = list[i];
                 for (; j >= gap && list[j-gap] > current; j-=gap) {
@@ -34,9 +37,5 @@ public class SequentialShellSort {
             }
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-
     }
 }
