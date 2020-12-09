@@ -9,22 +9,35 @@ import java.util.concurrent.Executors;
 public class ParrallelShellSort {
     // Volatile list to work with concurrency.
     private volatile int[] sorted = {};
+    private int amountOfThreads = 0;
+
+    public ParrallelShellSort() {
+        amountOfThreads = Runtime.getRuntime().availableProcessors();
+    }
+
+    public ParrallelShellSort(int AOT) {
+        int available = Runtime.getRuntime().availableProcessors();
+        if(AOT > available) {
+            //TODO throw exception.
+        } else {
+            amountOfThreads = AOT;
+        }
+    }
 
    public int[] sort(int[] list) {
        this.sorted = list;
 
-       // Put 4 threads in a list. These threads handle the comparisons of the indices.
-       //
-       ArrayList<ShellComparator> threads = new ArrayList<>(Arrays.asList(
-               new ShellComparator("t1", 0),
-               new ShellComparator("t2", 1),
-               new ShellComparator("t3", 2),
-               new ShellComparator("t4", 3)));
+       //create list of threads
+       ArrayList<ShellComparator> threads = new ArrayList<>();
+       for(int i = 0; i < amountOfThreads; i++) {
+           String name = "t" + i;
+           threads.add(new ShellComparator(name, i));
+       }
 
        ExecutorService pool;
+       pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()); // walter's pc = 4, lorenzo's = 8
 
        for (int i = threads.size(); i >= 1; i--) {
-           pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()); // walter's pc = 4, lorenzo's = 8
 
            List<Callable<Object>> tasks = new ArrayList<>();
 
@@ -42,6 +55,7 @@ public class ParrallelShellSort {
            }
        }
 
+       pool.shutdown();
        return this.sorted;
    }
 
