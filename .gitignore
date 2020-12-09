@@ -1,4 +1,2 @@
-#Standard java program files
-.out/
-.idea/
-*.iml
+.idea
+out/
