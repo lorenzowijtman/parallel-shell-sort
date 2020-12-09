@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 /* Class that will generate input for the program */
@@ -15,9 +14,10 @@ public class InputGenerator {
         generateDataset();
     }
 
-    //Specify size of generated input
-    public InputGenerator(int size) {
-        r.setSeed(this.seed);
+    //Specify size of generated input and the seed to be used
+    public InputGenerator(int size, long seed) {
+        this.seed = seed;
+        r.setSeed(seed);
         dataset = new int[size];
         generateDataset();
     }
