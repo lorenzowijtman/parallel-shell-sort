@@ -6,6 +6,10 @@ public class Main {
 
         System.out.println(Runtime.getRuntime().availableProcessors());
         SequentialShellSort sorter = new SequentialShellSort();
+        ParrallelShellSort psorter = new ParrallelShellSort();
+        int[] input = new InputGenerator(20, 114).getDataset();
+        printArray(input);
+        printArray(psorter.sort(input));
         int[] input = new InputGenerator(500000, 114).getDataset();
 
         //start timer
