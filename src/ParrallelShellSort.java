@@ -76,9 +76,8 @@ public class ParrallelShellSort {
         for (int i = startIndex ; i < sorted.length - gap; i += gap) {
             int j = sorted[i];
             int k = sorted[i + gap];
-
-            if (this.name.equals("t1")) System.out.println("J: " + j + '\n' + "K: "  + k);
-
+            
+            System.out.println(name + " J: " + j + '\n' + name + " K: "  + k);
             if (j > k) {
                 sorted[i + gap ] = j;
                 sorted[i] = k;

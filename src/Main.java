@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         SequentialShellSort sorter = new SequentialShellSort();
         ParrallelShellSort psorter = new ParrallelShellSort();
-        int[] input = new InputGenerator(5, 114).getDataset();
+        int[] input = new InputGenerator(20, 114).getDataset();
         printArray(input);
         printArray(psorter.sort(input));
     }
