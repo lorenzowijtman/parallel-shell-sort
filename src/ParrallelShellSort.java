@@ -16,7 +16,8 @@ public class ParrallelShellSort {
     public ParrallelShellSort(int AOT) {
         int available = Runtime.getRuntime().availableProcessors();
         if(AOT > available) {
-            //TODO throw exception.
+            //TODO 
+            amountOfThreads = AOT;
         } else {
             amountOfThreads = AOT;
         }
@@ -45,9 +46,9 @@ public class ParrallelShellSort {
            }
 
            try {
-               System.out.println("begin");
+//               System.out.println("begin");
                pool.invokeAll(tasks);
-               System.out.println("end");
+//               System.out.println("end");
            } catch (InterruptedException e) {
                e.printStackTrace();
            }

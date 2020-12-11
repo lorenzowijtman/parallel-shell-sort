@@ -8,26 +8,32 @@ public class Main {
 
         //SequentialShellSort sorter = new SequentialShellSort();
 
-        ParrallelShellSort psorter = new ParrallelShellSort(1);
-        int[] input = new InputGenerator(10, 114).getDataset();
-        printArray(input);
+        ParrallelShellSort psorter = new ParrallelShellSort(512);
+        int[][] inputs = {
+        new InputGenerator(100000, 114).getDataset(),
+        new InputGenerator(200000, 114).getDataset(),
+        new InputGenerator(300000, 114).getDataset(),
+        new InputGenerator(400000, 114).getDataset(),
+        new InputGenerator(500000, 114).getDataset()
+        };
 
+        for(int i = 0; i < inputs.length; i ++) {
+            //start timer
+            long start = System.currentTimeMillis();
 
+            //start sorting
+            int[] output = psorter.sort(inputs[i]);
 
-        //start timer
-        long start = System.currentTimeMillis();
+            //end timer
+            long end = System.currentTimeMillis();
 
-        //start sorting
-        int[] output = psorter.sort(input);
+            //get time difference
+            long time = end - start;
 
-        //end timer
-        long end = System.currentTimeMillis();
+            System.out.println("Array of size: "+ inputs[i].length + "\n" +"Time: "+ time);
+        }
 
-        //get time difference
-        long time = end - start;
-
-        System.out.println(time);
-        printArray(output);
+        //printArray(output);
 
 //        int result[] = {165, 165, 167, 168, 167, 173, 168, 169, 175, 179};
 //
