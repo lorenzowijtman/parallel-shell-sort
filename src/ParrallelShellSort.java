@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -73,16 +71,21 @@ public class ParrallelShellSort {
 
     @Override
     public void run() {
-        for (int i = startIndex ; i < sorted.length - gap; i += gap) {
-            int j = sorted[i];
-            int k = sorted[i + gap];
-            
-            System.out.println(name + " J: " + j + '\n' + name + " K: "  + k);
-            if (j > k) {
-                sorted[i + gap ] = j;
-                sorted[i] = k;
-           }
-        }
+        boolean isSorted;
+        do {
+            isSorted = true;
+            for (int i = startIndex ; i < sorted.length - gap; i += gap) {
+                int j = sorted[i];
+                int k = sorted[i + gap];
+
+                //System.out.println(name + " J: " + j + '\n' + name + " K: "  + k);
+                if (j > k) {
+                    sorted[i + gap ] = j;
+                    sorted[i] = k;
+                    isSorted = false;
+                }
+            }
+        } while(!isSorted);
 
     }
 }

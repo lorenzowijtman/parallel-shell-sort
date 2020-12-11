@@ -3,20 +3,22 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-
+        //available processors
         System.out.println(Runtime.getRuntime().availableProcessors());
-        SequentialShellSort sorter = new SequentialShellSort();
-        ParrallelShellSort psorter = new ParrallelShellSort();
-        int[] input = new InputGenerator(20, 114).getDataset();
+
+        //SequentialShellSort sorter = new SequentialShellSort();
+
+        ParrallelShellSort psorter = new ParrallelShellSort(1);
+        int[] input = new InputGenerator(10, 114).getDataset();
         printArray(input);
-        printArray(psorter.sort(input));
-        int[] input = new InputGenerator(500000, 114).getDataset();
+
+
 
         //start timer
         long start = System.currentTimeMillis();
 
         //start sorting
-        sorter.sort(input);
+        int[] output = psorter.sort(input);
 
         //end timer
         long end = System.currentTimeMillis();
@@ -25,6 +27,7 @@ public class Main {
         long time = end - start;
 
         System.out.println(time);
+        printArray(output);
 
 //        int result[] = {165, 165, 167, 168, 167, 173, 168, 169, 175, 179};
 //
