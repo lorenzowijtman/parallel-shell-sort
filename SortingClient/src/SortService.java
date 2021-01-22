@@ -1,6 +1,6 @@
 import java.rmi.*;
 
-public interface SortInterface extends Remote {
+public interface SortService extends Remote {
     /**
      * The name used in the RMI registry.
      */

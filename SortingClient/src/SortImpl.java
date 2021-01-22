@@ -2,7 +2,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class SortImpl extends UnicastRemoteObject
-        implements SortInterface {
+        implements SortService {
 
     SortImpl() throws RemoteException {
         super();
