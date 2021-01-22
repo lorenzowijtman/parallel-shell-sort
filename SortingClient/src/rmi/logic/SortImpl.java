@@ -1,10 +1,12 @@
+package rmi.logic;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class SortImpl extends UnicastRemoteObject
         implements SortService {
 
-    SortImpl() throws RemoteException {
+    public SortImpl() throws RemoteException {
         super();
     }
 

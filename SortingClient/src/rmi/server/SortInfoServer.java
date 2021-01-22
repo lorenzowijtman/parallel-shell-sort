@@ -1,10 +1,15 @@
+package rmi.server;
+
+import rmi.logic.SortImpl;
+import rmi.logic.SortService;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class SortInfoServer {
     public static void main(String[] args) {
-        System.out.println("SortInfoServer is starting...");
+        System.out.println("rmi.client.server.SortInfoServer is starting...");
 
         try {
             // create a RMI registry on localhost at port 1099
@@ -16,7 +21,7 @@ public class SortInfoServer {
             // bind it in the RMI registry
             registry.rebind(SortService.SERVICE_NAME, service);
 
-            System.out.println("SortInfoServer is ready.");
+            System.out.println("rmi.client.server.SortInfoServer is ready.");
 
             System.out.println("Wait for 10 seconds for any incoming client call before terminating the RMI registry...");
 

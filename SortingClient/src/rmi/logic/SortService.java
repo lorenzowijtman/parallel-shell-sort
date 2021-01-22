@@ -1,3 +1,5 @@
+package rmi.logic;
+
 import java.rmi.*;
 
 public interface SortService extends Remote {
