@@ -14,12 +14,12 @@ public class SortInfoServer {
 
     private static final int PORT = 1099;
     private static Registry registry;
-    private static ServerService service;
+    private static ServerService serverService;
 
     static {
         try {
             registry = LocateRegistry.createRegistry(PORT);
-            service = new ServerImpl();
+            serverService = new ServerImpl();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -33,11 +33,30 @@ public class SortInfoServer {
             ServerService service = new ServerImpl();
             registry.rebind(ServerService.SERVICE_NAME, service);
 
-            waitForInput("To send message input anything.");
+            System.out.println("To close the server type 'quit'");
+            System.out.println("To sort array type 'sort'");
+            System.out.println("To test client connection type 'test'");
 
-            service.executeClients();
 
-            waitForInput("To close the server input anything.");
+            String input = waitForInput("> ");
+
+            loop:
+            while (true) {
+                switch (input) {
+                    case "quit":
+                        break loop;
+                    case "test":
+                        service.testClients();
+                        break;
+                    case "sort":
+                        service.sort(new int[] {10, 9, 8, 8, 7, 6, 5, 4, 3, 2, 1});
+                        break;
+                    default:
+                        System.out.println("Could not recognize command.");
+                        break;
+                }
+                input = waitForInput(">");
+            }
 
             stopServer();
 
@@ -47,10 +66,10 @@ public class SortInfoServer {
         }
     }
 
-    private static void waitForInput(String msg) {
+    private static String waitForInput(String msg) {
         System.out.println(msg);
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        return scanner.nextLine();
     }
 
     public static void stopServer() {
@@ -59,7 +78,7 @@ public class SortInfoServer {
             registry.unbind(ServerService.SERVICE_NAME);
 
             // remove the service object from the registry
-            UnicastRemoteObject.unexportObject(service, true);
+            UnicastRemoteObject.unexportObject(serverService, true);
             System.out.println("Shutting down the RMI registry...");
             // shut down the registry
             UnicastRemoteObject.unexportObject(registry, true);

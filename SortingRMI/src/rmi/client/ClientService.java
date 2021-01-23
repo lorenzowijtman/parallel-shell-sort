@@ -4,7 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ClientService extends Remote {
-    public int[] sort(int[] sort) throws RemoteException;
-
+    public void setGap(int gap) throws RemoteException;
+    public void setStartIndex(int startIndex) throws RemoteException;
+    public void sort() throws RemoteException;
     void testMessage() throws RemoteException;
 }

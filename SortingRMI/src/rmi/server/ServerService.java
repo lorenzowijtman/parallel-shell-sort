@@ -2,7 +2,6 @@ package rmi.server;
 
 
 import rmi.client.ClientService;
-import rmi.client.SequentialShellSort;
 
 import java.rmi.*;
 
@@ -14,8 +13,10 @@ public interface ServerService extends Remote {
 
     void registerClient(ClientService sortClient) throws RemoteException;
     void unregisterClient(ClientService service) throws RemoteException;
-    void executeClients() throws RemoteException;
-
-
+    void testClients() throws RemoteException;
+    void sort(int[] list) throws RemoteException;
+    void setSortedArr(int index, int value) throws RemoteException;
+    int getSortedArrayIndex(int index) throws RemoteException;
+    int getSortedArrayLength() throws RemoteException;
 }
 
