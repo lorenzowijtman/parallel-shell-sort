@@ -1,38 +1,55 @@
+import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         //available processors
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        int available = Runtime.getRuntime().availableProcessors();
+        int AOT = available;
 
-        //SequentialShellSort sorter = new SequentialShellSort();
+        Scanner scanner = new Scanner(new InputStreamReader(System.in));
+        System.out.println("Welcome to our parallel Shell Sort implementation\nYou have " + available +
+                " threads available to run the program.\nPlease enter the amount of threads you want to use: ");
+        int input = scanner.nextInt();
 
-        ParrallelShellSort psorter = new ParrallelShellSort(1);
-        int[] input = new InputGenerator(10, 114).getDataset();
-        printArray(input);
+        if(AOT > available){
+            // Too many threads specified
+            System.out.println("You entered more threads than available so we will use all the available threads");
+        } else {
+            // Legitimate number
+            AOT = input;
+            System.out.println("running with " + AOT + " threads");
+        }
 
+        ParrallelShellSort psorter = new ParrallelShellSort(AOT);
 
+        System.out.println("Please enter the dataset size you want to use");
+        int dataSize = scanner.nextInt();
+        int[] data = new InputGenerator(dataSize, 114).getDataset();
+        System.out.println("Using dataset size: " + dataSize);
 
-        //start timer
+        System.out.println("Start sorting");
+
         long start = System.currentTimeMillis();
 
-        //start sorting
-        int[] output = psorter.sort(input);
+        int[] sorted = psorter.sort(data);
 
-        //end timer
         long end = System.currentTimeMillis();
 
         //get time difference
         long time = end - start;
 
-        System.out.println(time);
-        printArray(output);
+        printArray(sorted);
 
-//        int result[] = {165, 165, 167, 168, 167, 173, 168, 169, 175, 179};
-//
-//        calcAverage(result);
+        System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + "milliseconds");
 
+        //SequentialShellSort sorter = new SequentialShellSort();
+    }
+
+    public static boolean isInteger(String s) {
+        return s.matches("^-?\\\\d+$");
     }
 
     public static void printArray(int[] arr) {
@@ -42,7 +59,7 @@ public class Main {
     public static void calcAverage(int[] results) {
         long time = 0;
 
-        for(int i = 0; i < results.length; i++) {
+        for (int i = 0; i < results.length; i++) {
             time += results[i];
         }
 
