@@ -81,7 +81,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
             }
         }
 
-        ExecutorService pool = Executors.newSingleThreadExecutor();
+        ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         try {
             final int amountOfClients = sortingClients.size();

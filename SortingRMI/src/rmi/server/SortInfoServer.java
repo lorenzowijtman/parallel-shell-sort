@@ -2,6 +2,7 @@ package rmi.server;
 
 import rmi.client.input.InputGenerator;
 
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -29,13 +30,35 @@ public class SortInfoServer {
         }
     }
 
+    public static void runSort( ) throws RemoteException {
+        Scanner scanner = new Scanner(new InputStreamReader(System.in));
+
+        System.out.println("Please enter the dataset size you want to use");
+        int dataSize = scanner.nextInt();
+        int[] data = new InputGenerator(dataSize, 114).getDataset();
+        System.out.println("Using dataset size: " + dataSize);
+
+        System.out.println("Start sorting");
+
+        long start = System.currentTimeMillis();
+
+        serverService.sort(data);
+
+        long end = System.currentTimeMillis();
+
+        //get time difference
+        long time = end - start;
+
+        System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + "milliseconds");
+    }
+
     public static void startServer() {
         System.out.println("Server is starting...");
 
         try {
             System.out.println("Server is running on PORT " + PORT);
-            ServerService service = new ServerImpl();
-            registry.rebind(ServerService.SERVICE_NAME, service);
+
+            registry.rebind(ServerService.SERVICE_NAME, serverService);
 
             System.out.println("To close the server type 'quit'");
             System.out.println("To sort array type 'sort'");
@@ -50,14 +73,10 @@ public class SortInfoServer {
                     case "quit":
                         break loop;
                     case "test":
-                        service.testClients();
+                        serverService.testClients();
                         break;
                     case "sort":
-                        service.sort(new int[]{10, 9, 8, 8, 7, 6, 5, 4, 3, 2, 1});
-                        break;
-                    case "sort random":
-                        int[] dataset = inputGenerator.getDataset();
-                        service.sort(dataset);
+                        runSort();
                         break;
                     default:
                         System.out.println("Could not recognize command.");
