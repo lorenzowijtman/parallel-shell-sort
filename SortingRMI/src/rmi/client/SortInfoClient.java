@@ -64,7 +64,7 @@ public class SortInfoClient {
         protected RMIShellSort() throws RemoteException {
         }
 
-        public void sort() throws RemoteException, InterruptedException {
+        public void sort() throws RemoteException {
             System.out.println("Running on client, gap is " + gap + " and startIndex is " + startIndex);
 
             boolean isSorted;

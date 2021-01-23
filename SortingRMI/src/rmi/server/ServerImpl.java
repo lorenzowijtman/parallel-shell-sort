@@ -62,6 +62,11 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
 
     @Override
     public void sort(int[] list) {
+        if (sortingClients.size() < 1) {
+            System.err.println("You need at least one client to be connected!");
+            return;
+        }
+
         this.sorted = list;
 
         class OneShotTask implements Runnable {
