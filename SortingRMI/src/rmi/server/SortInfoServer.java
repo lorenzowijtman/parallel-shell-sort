@@ -49,7 +49,7 @@ public class SortInfoServer {
         //get time difference
         long time = end - start;
 
-        System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + "milliseconds");
+        System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + " milliseconds");
     }
 
     public static void startServer() {
