@@ -14,13 +14,7 @@ public class ParrallelShellSort {
     }
 
     public ParrallelShellSort(int AOT) {
-        int available = Runtime.getRuntime().availableProcessors();
-        if(AOT > available) {
-            //TODO 
-            amountOfThreads = AOT;
-        } else {
-            amountOfThreads = AOT;
-        }
+        amountOfThreads = AOT;
     }
 
    public int[] sort(int[] list) {
