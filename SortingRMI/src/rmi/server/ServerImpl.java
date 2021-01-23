@@ -62,8 +62,26 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
 
     @Override
     public void sort(int[] list) {
-        System.out.println("Setting list to volatile list");
         this.sorted = list;
+
+        class OneShotTask implements Runnable {
+            final ClientService client;
+
+            OneShotTask(ClientService client) {
+                this.client = client;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    client.sort();
+                } catch (RemoteException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        ExecutorService pool = Executors.newSingleThreadExecutor();
 
         try {
             final int amountOfClients = sortingClients.size();
@@ -72,26 +90,30 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
                 sortingClients.get(i).setStartIndex(i);
             }
 
-            System.out.println("setting gaps");
             for (int i = amountOfClients; i >= 1; i--) {
-                for (int k = 0; k < 1; k++) {
+                List<Callable<Object>> tasks = new ArrayList<>();
+
+                for (int k = 0; k < i; k++) {
                     sortingClients.get(k).setGap(i);
+                    tasks.add(Executors.callable(new OneShotTask(sortingClients.get(k))));
                 }
+
+                pool.invokeAll(tasks);
             }
-            System.out.println("done setting gaps");
 
-            sortingClients.forEach(sortingClient -> {
-                try {
-                    sortingClient.sort();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            });
+//            sortingClients.forEach(sortingClient -> {
+//                OneShotTask task = new OneShotTask(sortingClient);
+//                task.run();
+//                System.out.println("Start task");
+//                System.out.println("Inbetween list: ");
+//                for (int x : sorted) System.out.print(x + ", ");
+//                System.out.println();
+//            });
 
-            for (int x: sorted) {
+            for (int x : sorted) {
                 System.out.print(x + ", ");
             }
-        } catch (RemoteException e) {
+        } catch (RemoteException | InterruptedException e) {
             e.printStackTrace();
         }
     }

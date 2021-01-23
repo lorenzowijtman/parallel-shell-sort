@@ -1,5 +1,7 @@
 package rmi.server;
 
+import rmi.client.input.InputGenerator;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -15,11 +17,13 @@ public class SortInfoServer {
     private static final int PORT = 1099;
     private static Registry registry;
     private static ServerService serverService;
+    private static InputGenerator inputGenerator;
 
     static {
         try {
             registry = LocateRegistry.createRegistry(PORT);
             serverService = new ServerImpl();
+            inputGenerator = new InputGenerator(100, 114);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -49,7 +53,11 @@ public class SortInfoServer {
                         service.testClients();
                         break;
                     case "sort":
-                        service.sort(new int[] {10, 9, 8, 8, 7, 6, 5, 4, 3, 2, 1});
+                        service.sort(new int[]{10, 9, 8, 8, 7, 6, 5, 4, 3, 2, 1});
+                        break;
+                    case "sort random":
+                        int[] dataset = inputGenerator.getDataset();
+                        service.sort(dataset);
                         break;
                     default:
                         System.out.println("Could not recognize command.");

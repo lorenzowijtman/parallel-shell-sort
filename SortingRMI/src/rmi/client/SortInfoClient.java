@@ -56,7 +56,7 @@ public class SortInfoClient {
     }
 
     private static class RMIShellSort extends UnicastRemoteObject implements ClientService {
-        private static final long serialVersionUID = 1190476516911661470L;
+        private static final long serialVersionUID = 7046066010463878804L;
 
         private int gap;
         private int startIndex;
@@ -64,15 +64,13 @@ public class SortInfoClient {
         protected RMIShellSort() throws RemoteException {
         }
 
-        public void sort() throws RemoteException {
+        public void sort() throws RemoteException, InterruptedException {
             System.out.println("Running on client, gap is " + gap + " and startIndex is " + startIndex);
 
             boolean isSorted;
 
             do {
                 isSorted = true;
-                System.out.println("x1");
-
                 for (int i = startIndex; i < serverService.getSortedArrayLength() - gap; i += gap) {
                     int j = serverService.getSortedArrayIndex(i);
                     int k = serverService.getSortedArrayIndex(i + gap);
