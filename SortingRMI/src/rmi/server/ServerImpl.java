@@ -101,15 +101,6 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
                 pool.invokeAll(tasks);
             }
 
-//            sortingClients.forEach(sortingClient -> {
-//                OneShotTask task = new OneShotTask(sortingClient);
-//                task.run();
-//                System.out.println("Start task");
-//                System.out.println("Inbetween list: ");
-//                for (int x : sorted) System.out.print(x + ", ");
-//                System.out.println();
-//            });
-
             for (int x : sorted) {
                 System.out.print(x + ", ");
             }
@@ -119,18 +110,3 @@ public class ServerImpl extends UnicastRemoteObject implements ServerService {
     }
 }
 
-//
-//class OneShotTask implements Runnable {
-//    final ClientService client;
-//
-//    OneShotTask(ClientService client) {this.client = client;}
-//
-//    @Override
-//    public void run() {
-//        try {
-//            client.sort();
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//}

@@ -74,8 +74,6 @@ public class SortInfoClient {
                 for (int i = startIndex; i < serverService.getSortedArrayLength() - gap; i += gap) {
                     int j = serverService.getSortedArrayIndex(i);
                     int k = serverService.getSortedArrayIndex(i + gap);
-//                    System.out.println("x2: j="+j+"k="+k);
-                    //System.out.println(name + " J: " + j + '\n' + name + " K: "  + k);
                     if (j > k) {
                         serverService.setSortedArr(i + gap, j);
                         serverService.setSortedArr(i, k);
