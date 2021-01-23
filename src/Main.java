@@ -14,48 +14,38 @@ public class Main {
                 " threads available to run the program.\nPlease enter the amount of threads you want to use: ");
         int input = scanner.nextInt();
 
-            if(AOT > available){
-                // Too many threads specified
-                System.out.println("You entered more threads than available so we will use all the available threads");
-            } else {
-                // Legitimate number
-                System.out.println("running with " + AOT + " threads");
-            }
-
-
-        //SequentialShellSort sorter = new SequentialShellSort();
-
-        ParrallelShellSort psorter = new ParrallelShellSort(AOT);
-        int[][] inputs = {
-                new InputGenerator(100000, 114).getDataset(),
-                new InputGenerator(200000, 114).getDataset(),
-                new InputGenerator(300000, 114).getDataset(),
-                new InputGenerator(400000, 114).getDataset(),
-                new InputGenerator(500000, 114).getDataset()
-        };
-
-        for (int i = 0; i < inputs.length; i++) {
-            //start timer
-            long start = System.currentTimeMillis();
-
-            //start sorting
-            int[] output = psorter.sort(inputs[i]);
-
-            //end timer
-            long end = System.currentTimeMillis();
-
-            //get time difference
-            long time = end - start;
-
-            System.out.println("Array of size: " + inputs[i].length + "\n" + "Time: " + time);
+        if(AOT > available){
+            // Too many threads specified
+            System.out.println("You entered more threads than available so we will use all the available threads");
+        } else {
+            // Legitimate number
+            AOT = input;
+            System.out.println("running with " + AOT + " threads");
         }
 
-        //printArray(output);
+        ParrallelShellSort psorter = new ParrallelShellSort(AOT);
 
-//        int result[] = {165, 165, 167, 168, 167, 173, 168, 169, 175, 179};
-//
-//        calcAverage(result);
+        System.out.println("Please enter the dataset size you want to use");
+        int dataSize = scanner.nextInt();
+        int[] data = new InputGenerator(dataSize, 114).getDataset();
+        System.out.println("Using dataset size: " + dataSize);
 
+        System.out.println("Start sorting");
+
+        long start = System.currentTimeMillis();
+
+        int[] sorted = psorter.sort(data);
+
+        long end = System.currentTimeMillis();
+
+        //get time difference
+        long time = end - start;
+
+        printArray(sorted);
+
+        System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + "milliseconds");
+
+        //SequentialShellSort sorter = new SequentialShellSort();
     }
 
     public static boolean isInteger(String s) {
