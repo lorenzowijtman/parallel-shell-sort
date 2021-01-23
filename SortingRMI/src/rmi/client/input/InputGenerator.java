@@ -1,4 +1,4 @@
-package rmi.logic.input;
+package rmi.client.input;
 
 import java.util.Random;
 

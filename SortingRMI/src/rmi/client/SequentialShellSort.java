@@ -1,8 +1,16 @@
-package rmi.logic;// Author: github.com/rboyd/algorithms
+package rmi.client;// Author: github.com/rboyd/algorithms
 
-public class SequentialShellSort {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class SequentialShellSort extends UnicastRemoteObject implements ClientService {
+    private static final long serialVersionUID = 1190476516911661470L;
+
     static int[] gaps = {701, 301, 132, 57, 23, 10, 4, 1};
     static int[] unsorted = {80, 62, 45, 12, 52, 61, 76, 22, 95, 7, 2, 16, 8, 85, 17, 38, 25, 48, 60, 96};
+
+    protected SequentialShellSort() throws RemoteException {
+    }
 
     /* Shell sort is so named after the method was published by
     computer scientist Donald Shell in 1959.
@@ -22,7 +30,10 @@ public class SequentialShellSort {
     "For many practical variants, determining their time complexity
     remains an open problem." [Wikipedia]
     */
+    @Override
     public int[] sort(int[] list) {
+        System.out.println("Running on client");
+
         for(int gap: gaps) {
             int k = 0;
             for (int i = gap; i < list.length; i+=1) {
@@ -37,5 +48,11 @@ public class SequentialShellSort {
             }
         }
         return list;
+    }
+
+    @Override
+    public void testMessage() {
+        System.out.println("This is the client testMessage. " +
+                "This function is called from the server and executed on the client.");
     }
 }

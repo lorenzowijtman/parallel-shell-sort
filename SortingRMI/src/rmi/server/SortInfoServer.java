@@ -1,8 +1,5 @@
 package rmi.server;
 
-import rmi.logic.SortImpl;
-import rmi.logic.SortService;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -17,12 +14,12 @@ public class SortInfoServer {
 
     private static final int PORT = 1099;
     private static Registry registry;
-    private static SortService service;
+    private static ServerService service;
 
     static {
         try {
             registry = LocateRegistry.createRegistry(PORT);
-            service = new SortImpl();
+            service = new ServerImpl();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -33,11 +30,14 @@ public class SortInfoServer {
 
         try {
             System.out.println("Server is running on PORT " + PORT);
-            SortService service = new SortImpl();
-            registry.rebind(SortService.SERVICE_NAME, service);
-            System.out.println("To close the server input anything.");
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
+            ServerService service = new ServerImpl();
+            registry.rebind(ServerService.SERVICE_NAME, service);
+
+            waitForInput("To send message input anything.");
+
+            service.executeClients();
+
+            waitForInput("To close the server input anything.");
 
             stopServer();
 
@@ -47,10 +47,16 @@ public class SortInfoServer {
         }
     }
 
+    private static void waitForInput(String msg) {
+        System.out.println(msg);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+    }
+
     public static void stopServer() {
         try {
             // unbind the service object
-            registry.unbind(SortService.SERVICE_NAME);
+            registry.unbind(ServerService.SERVICE_NAME);
 
             // remove the service object from the registry
             UnicastRemoteObject.unexportObject(service, true);
