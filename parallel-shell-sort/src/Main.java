@@ -1,3 +1,5 @@
+package src;
+
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class Main {
                 " threads available to run the program.\nPlease enter the amount of threads you want to use: ");
         int input = scanner.nextInt();
 
-        if(AOT > available){
+        if (AOT > available) {
             // Too many threads specified
             System.out.println("You entered more threads than available so we will use all the available threads");
         } else {
@@ -45,7 +47,7 @@ public class Main {
 
         System.out.println("Sorted array!\nSize: " + dataSize + "\n" + "Time: " + time + "milliseconds");
 
-        //SequentialShellSort sorter = new SequentialShellSort();
+        //src.SequentialShellSort sorter = new src.SequentialShellSort();
     }
 
     public static boolean isInteger(String s) {

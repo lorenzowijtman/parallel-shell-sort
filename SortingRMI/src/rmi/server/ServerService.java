@@ -12,11 +12,17 @@ public interface ServerService extends Remote {
     String SERVICE_NAME = "ProductInfoService";
 
     void registerClient(ClientService sortClient) throws RemoteException;
+
     void unregisterClient(ClientService service) throws RemoteException;
+
     void testClients() throws RemoteException;
+
     void sort(int[] list) throws RemoteException;
+
     void setSortedArr(int index, int value) throws RemoteException;
+
     int getSortedArrayIndex(int index) throws RemoteException;
+
     int getSortedArrayLength() throws RemoteException;
 }
 

@@ -1,4 +1,4 @@
-// Author: github.com/rboyd/algorithms
+package src;// Author: github.com/rboyd/algorithms
 
 public class SequentialShellSort {
     static int[] gaps = {701, 301, 132, 57, 23, 10, 4, 1};
@@ -23,15 +23,15 @@ public class SequentialShellSort {
     remains an open problem." [Wikipedia]
     */
     public int[] sort(int[] list) {
-        for(int gap: gaps) {
+        for (int gap : gaps) {
             int k = 0;
-            for (int i = gap; i < list.length; i+=1) {
+            for (int i = gap; i < list.length; i += 1) {
 
-                System.out.println("("+ ++k +")G: " + gap);
+                System.out.println("(" + ++k + ")G: " + gap);
                 int j = i;
                 int current = list[i];
-                for (; j >= gap && list[j-gap] > current; j-=gap) {
-                    list[j] = list[j-gap];
+                for (; j >= gap && list[j - gap] > current; j -= gap) {
+                    list[j] = list[j - gap];
                 }
                 list[j] = current;
             }

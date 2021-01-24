@@ -30,7 +30,7 @@ public class SortInfoServer {
         }
     }
 
-    public static void runSort( ) throws RemoteException {
+    public static void runSort() throws RemoteException {
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
 
         System.out.println("Please enter the dataset size you want to use");

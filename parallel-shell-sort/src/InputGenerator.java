@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Random;
 
 /* Class that will generate input for the program */
